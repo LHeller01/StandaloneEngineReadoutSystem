@@ -1,8 +1,11 @@
-﻿using System;
+﻿using StandaloneEngineReadoutSystem.UwpApp.CarReaders;
+using StandaloneEngineReadoutSystem.UwpApp.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +25,20 @@ namespace StandaloneEngineReadoutSystem.UwpApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+       
+
         public MainPage()
         {
             this.InitializeComponent();
+           
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            var vm = new DashboardViewModel(new FakeCarReader());
+            this.DataContext = vm;
+            await vm.Start();
+           
         }
     }
 }
